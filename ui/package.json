@@ -1,0 +1,28 @@
+{
+  "name": "competitive-pricing-dashboard",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Dashboard UI for Competitive Pricing Multi-Agent System",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["ai", "pricing", "multi-agent", "dashboard"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.12.7",
+    "lucide-react": "^0.400.0",
+    "framer-motion": "^11.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.11"
+  }
+}

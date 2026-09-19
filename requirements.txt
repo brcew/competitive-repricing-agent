@@ -1,0 +1,26 @@
+# Core framework
+openai>=2.48.0  # For Groq API integration
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# Async & Scheduling
+asyncio
+apscheduler==3.10.4
+
+# Data & Utilities
+pydantic==2.5.2
+python-dotenv==1.0.0
+structlog==23.2.0
+
+# Testing
+pytest>=7.4.4
+pytest-asyncio>=0.23.2
+pytest-mock>=3.12.0
+
+# Development
+black==23.12.1
+isort==5.13.2
+mypy==1.8.0

@@ -1,0 +1,9 @@
+# Hugging Face Spaces requirements
+gradio>=4.0.0
+openai>=2.48.0
+sqlalchemy==2.0.25
+alembic==1.13.1
+pydantic==2.5.2
+python-dotenv==1.0.0
+structlog==23.2.0
+pandas>=2.0.0
