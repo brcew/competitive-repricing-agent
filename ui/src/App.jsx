@@ -7,6 +7,7 @@ import DecisionFeed from './components/DecisionFeed';
 import CostChart from './components/CostChart';
 import TechStack from './components/TechStack';
 import Footer from './components/Footer';
+import FloatingObjects from './components/FloatingObjects';
 
 function BackgroundBlobs() {
   return (
@@ -32,6 +33,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">
+      {/* Floating product objects (behind everything) */}
+      <FloatingObjects />
+      
+      {/* Liquid morphing blobs */}
       <BackgroundBlobs />
       
       <TopBar />

@@ -16,7 +16,9 @@ export default {
         'text-muted': '#9ca3af',
       },
       fontFamily: {
-        mono: ['JetBrains Mono', 'Space Mono', 'Courier New', 'monospace'],
+        heading: ['Unbounded', 'system-ui', 'sans-serif'],
+        body: ['Sora', 'system-ui', 'sans-serif'],
+        mono: ['Space Mono', 'ui-monospace', 'Consolas', 'monospace'],
       },
     },
   },

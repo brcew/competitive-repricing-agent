@@ -6,6 +6,11 @@
    CSS VARIABLES - EASY TWEAKING
    ============================================ */
 :root {
+  /* === FONTS === */
+  --font-heading: 'Unbounded', system-ui, sans-serif;
+  --font-body: 'Sora', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, Consolas, monospace;
+  
   /* Liquid glass intensity */
   --glass-blur: 24px;
   --glass-saturation: 170%;
@@ -39,10 +44,47 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-dark-bg-1 to-dark-bg-2 text-text-primary font-sans;
+    @apply bg-gradient-to-br from-dark-bg-1 to-dark-bg-2 text-text-primary;
     min-height: 100vh;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-body);
     overflow-x: hidden;
+  }
+  
+  /* Typography system */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Body text on glass needs higher weight for contrast */
+  .glass-card-enhanced p,
+  .glass-card p,
+  .text-sm,
+  .text-xs {
+    font-weight: 500;
+  }
+  
+  /* Code and monospace elements */
+  code, pre, .font-mono,
+  .decision-feed,
+  .sku-code {
+    font-family: var(--font-mono);
+  }
+  
+  /* Prevent Unbounded overflow on mobile */
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    h2 {
+      font-size: 1.25rem;
+    }
+    /* Big stat numbers */
+    .text-4xl {
+      font-size: 2rem;
+    }
   }
 }
 
@@ -175,8 +217,21 @@
   /* ============================================
      TEXT & EFFECTS
      ============================================ */
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+  
+  .font-body {
+    font-family: var(--font-body);
+  }
+  
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  
   .text-gradient-purple {
     @apply bg-gradient-to-r from-accent-purple to-accent-pink bg-clip-text text-transparent;
+    font-family: var(--font-heading);
   }
   
   .glow-purple {
