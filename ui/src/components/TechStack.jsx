@@ -3,11 +3,27 @@ import {
   Code2, Zap, Brain, Database, Server, 
   FileText, CheckSquare, Container, Workflow 
 } from 'lucide-react';
+import GlassCard from './GlassCard';
+import TiltIcon from './TiltIcon';
 
 const iconMap = {
   Code2, Zap, Brain, Database, Server,
   FileText, CheckSquare, Container, Workflow,
   BrainCircuit: Brain
+};
+
+// Glow colors for each tech
+const glowMap = {
+  Code2: 'rgba(96, 165, 250, 0.6)',
+  Zap: 'rgba(250, 204, 21, 0.6)',
+  Brain: 'rgba(168, 85, 247, 0.6)',
+  BrainCircuit: 'rgba(236, 72, 153, 0.6)',
+  Database: 'rgba(34, 197, 94, 0.6)',
+  Server: 'rgba(34, 211, 238, 0.6)',
+  FileText: 'rgba(249, 115, 22, 0.6)',
+  CheckSquare: 'rgba(34, 197, 94, 0.6)',
+  Container: 'rgba(96, 165, 250, 0.6)',
+  Workflow: 'rgba(168, 85, 247, 0.6)',
 };
 
 const techStack = [
@@ -40,25 +56,30 @@ export default function TechStack() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
-        className="glass-card p-8"
       >
-        <div className="flex flex-wrap gap-3">
-          {techStack.map((tech, index) => {
-            const Icon = iconMap[tech.icon];
-            return (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
-                className="glass-card-hover px-4 py-3 flex items-center gap-3"
-              >
-                <Icon className={`w-5 h-5 ${tech.color}`} />
-                <span className="text-sm font-medium text-text-primary">{tech.name}</span>
-              </motion.div>
-            );
-          })}
-        </div>
+        <GlassCard className="p-8">
+          <div className="flex flex-wrap gap-3">
+            {techStack.map((tech, index) => {
+              const Icon = iconMap[tech.icon];
+              const glowColor = glowMap[tech.icon];
+              return (
+                <motion.div
+                  key={tech.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05, duration: 0.3 }}
+                >
+                  <GlassCard className="px-4 py-3 flex items-center gap-3" intensity="low">
+                    <TiltIcon glowColor={glowColor} maxTilt={15}>
+                      <Icon className={`w-5 h-5 ${tech.color}`} />
+                    </TiltIcon>
+                    <span className="text-sm font-medium text-text-primary">{tech.name}</span>
+                  </GlassCard>
+                </motion.div>
+              );
+            })}
+          </div>
+        </GlassCard>
       </motion.div>
     </section>
   );

@@ -2,23 +2,179 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   CSS VARIABLES - EASY TWEAKING
+   ============================================ */
+:root {
+  /* Liquid glass intensity */
+  --glass-blur: 24px;
+  --glass-saturation: 170%;
+  --glass-opacity-start: 0.12;
+  --glass-opacity-end: 0.04;
+  --glass-border-opacity: 0.18;
+  --glass-glow-strength: 0.25;
+  
+  /* 3D tilt settings */
+  --icon-tilt-max: 18deg;
+  --card-tilt-max: 6deg;
+  --icon-lift: 25px;
+  
+  /* Liquid blob animation */
+  --blob-morph-duration: 16s;
+}
+
+/* Disable animations for reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  :root {
+    --icon-tilt-max: 0deg;
+    --card-tilt-max: 0deg;
+  }
+}
+
 @layer base {
   body {
     @apply bg-gradient-to-br from-dark-bg-1 to-dark-bg-2 text-text-primary font-sans;
     min-height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
   }
 }
 
 @layer utilities {
+  /* ============================================
+     LIQUID GLASS CARD - Enhanced version
+     ============================================ */
+  .glass-card-enhanced {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, var(--glass-opacity-start)) 0%,
+      rgba(255, 255, 255, var(--glass-opacity-end)) 100%
+    );
+    backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-saturation, 170%));
+    -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-saturation, 170%));
+    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
+    border-radius: 24px;
+    box-shadow: 
+      0 8px 32px 0 rgba(168, 85, 247, var(--glass-glow-strength)),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card-enhanced:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, calc(var(--glass-opacity-start) * 1.3)) 0%,
+      rgba(255, 255, 255, calc(var(--glass-opacity-end) * 1.5)) 100%
+    );
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 
+      0 12px 48px 0 rgba(168, 85, 247, calc(var(--glass-glow-strength) * 1.5)),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  
+  /* Cursor-following specular highlight */
+  .glass-specular {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.05) 40%,
+      transparent 70%
+    );
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    filter: blur(20px);
+    mix-blend-mode: overlay;
+    z-index: 1;
+  }
+  
+  /* Legacy glass card (for backward compatibility) */
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+    @apply glass-card-enhanced;
   }
   
   .glass-card-hover {
-    @apply glass-card transition-all duration-300 hover:bg-white/10 hover:border-accent-purple/30 hover:shadow-lg hover:shadow-accent-purple/20;
+    @apply glass-card-enhanced;
   }
   
+  /* ============================================
+     3D TILT ICON SYSTEM
+     ============================================ */
+  .tilt-icon-wrapper {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .tilt-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  /* Icon shadow layer */
+  .icon-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    filter: blur(15px);
+    opacity: 0.6;
+    z-index: -1;
+    transform: translateZ(-10px);
+  }
+  
+  /* Icon glow layer */
+  .icon-glow {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    opacity: 0.8;
+    z-index: 0;
+  }
+  
+  /* Icon content layer */
+  .icon-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Moving glare highlight */
+  .icon-glare {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.2) 30%,
+      transparent 60%
+    );
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    filter: blur(8px);
+    mix-blend-mode: overlay;
+    z-index: 3;
+  }
+  
+  /* ============================================
+     TEXT & EFFECTS
+     ============================================ */
   .text-gradient-purple {
     @apply bg-gradient-to-r from-accent-purple to-accent-pink bg-clip-text text-transparent;
   }
@@ -27,6 +183,9 @@
     text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
   }
   
+  /* ============================================
+     LIQUID MORPHING BLOBS
+     ============================================ */
   .blob-bg {
     position: fixed;
     border-radius: 50%;
@@ -34,5 +193,49 @@
     opacity: 0.3;
     pointer-events: none;
     z-index: 0;
+    animation: liquid-morph var(--blob-morph-duration) infinite ease-in-out;
+  }
+  
+  /* Morphing animation with 3 keyframe variations */
+  @keyframes liquid-morph {
+    0%, 100% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    20% {
+      transform: translate(40px, -60px) scale(1.08) rotate(60deg);
+      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+    40% {
+      transform: translate(-30px, 40px) scale(0.95) rotate(-80deg);
+      border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    }
+    60% {
+      transform: translate(50px, 30px) scale(1.1) rotate(120deg);
+      border-radius: 40% 60% 60% 40% / 70% 50% 50% 30%;
+    }
+    80% {
+      transform: translate(-40px, -20px) scale(0.92) rotate(-120deg);
+      border-radius: 50% 50% 30% 70% / 60% 70% 40% 30%;
+    }
+  }
+}
+
+/* ============================================
+   RESPONSIVE & ACCESSIBILITY
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --glass-blur: 20px;
+    --icon-tilt-max: 0deg;
+    --card-tilt-max: 0deg;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-card-enhanced {
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.4);
   }
 }

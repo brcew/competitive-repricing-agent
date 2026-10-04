@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import TopBar from './components/TopBar';
 import HeroSummary from './components/HeroSummary';
 import ArchitectureDiagram from './components/ArchitectureDiagram';
@@ -14,43 +13,22 @@ function BackgroundBlobs() {
     <>
       <div 
         className="blob-bg w-[500px] h-[500px] bg-accent-purple/30 top-[10%] left-[-10%]"
-        style={{ animation: 'float 20s infinite ease-in-out' }}
+        style={{ animationDelay: '0s' }}
       />
       <div 
         className="blob-bg w-[400px] h-[400px] bg-accent-pink/30 top-[50%] right-[-5%]"
-        style={{ animation: 'float 20s infinite ease-in-out 5s' }}
+        style={{ animationDelay: '5s' }}
       />
       <div 
         className="blob-bg w-[350px] h-[350px] bg-accent-orange/30 bottom-[10%] left-[40%]"
-        style={{ animation: 'float 20s infinite ease-in-out 10s' }}
+        style={{ animationDelay: '10s' }}
       />
     </>
   );
 }
 
 export default function App() {
-  useEffect(() => {
-    // Add floating animation keyframes
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes float {
-        0%, 100% {
-          transform: translate(0, 0) scale(1);
-        }
-        33% {
-          transform: translate(50px, -50px) scale(1.1);
-        }
-        66% {
-          transform: translate(-30px, 30px) scale(0.9);
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+  // Liquid morph animation is now in index.css
 
   return (
     <div className="min-h-screen relative overflow-x-hidden">

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Brain, Shield, Database } from 'lucide-react';
+import GlassCard from './GlassCard';
+import TiltIcon from './TiltIcon';
 
 const nodes = [
   {
@@ -8,7 +10,8 @@ const nodes = [
     subtitle: 'llama-3.3-70b-versatile',
     details: 'Hourly • Watchlist Management',
     icon: Brain,
-    color: 'from-purple-600 to-purple-800'
+    color: 'from-purple-600 to-purple-800',
+    glow: 'rgba(168, 85, 247, 0.7)'
   },
   {
     id: 2,
@@ -16,7 +19,8 @@ const nodes = [
     subtitle: 'llama-3.1-8b-instant',
     details: '15min/SKU • Pricing Decisions',
     icon: Brain,
-    color: 'from-blue-600 to-blue-800'
+    color: 'from-blue-600 to-blue-800',
+    glow: 'rgba(59, 130, 246, 0.7)'
   },
   {
     id: 3,
@@ -24,7 +28,8 @@ const nodes = [
     subtitle: 'Deterministic Python',
     details: '12% floor • Code enforced',
     icon: Shield,
-    color: 'from-pink-600 to-pink-800'
+    color: 'from-pink-600 to-pink-800',
+    glow: 'rgba(236, 72, 153, 0.7)'
   },
   {
     id: 4,
@@ -32,7 +37,8 @@ const nodes = [
     subtitle: 'Database + Audit Trail',
     details: 'Decision logged & tracked',
     icon: Database,
-    color: 'from-orange-600 to-orange-800'
+    color: 'from-orange-600 to-orange-800',
+    glow: 'rgba(249, 115, 22, 0.7)'
   }
 ];
 
@@ -44,14 +50,17 @@ function ArchitectureNode({ node, index }) {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.15, duration: 0.5 }}
-      className="glass-card p-6 relative"
     >
-      <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${node.color} flex items-center justify-center mb-4`}>
-        <Icon className="w-6 h-6 text-white" />
-      </div>
-      <h3 className="text-lg font-bold text-text-primary mb-1">{node.title}</h3>
-      <p className="text-sm text-accent-purple font-mono mb-2">{node.subtitle}</p>
-      <p className="text-xs text-text-muted">{node.details}</p>
+      <GlassCard className="p-6 relative" intensity="medium">
+        <TiltIcon glowColor={node.glow} maxTilt={15}>
+          <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${node.color} flex items-center justify-center mb-4`}>
+            <Icon className="w-6 h-6 text-white" />
+          </div>
+        </TiltIcon>
+        <h3 className="text-lg font-bold text-text-primary mb-1">{node.title}</h3>
+        <p className="text-sm text-accent-purple font-mono mb-2">{node.subtitle}</p>
+        <p className="text-xs text-text-muted">{node.details}</p>
+      </GlassCard>
     </motion.div>
   );
 }
@@ -86,7 +95,7 @@ export default function ArchitectureDiagram() {
         </p>
       </motion.div>
       
-      <div className="glass-card p-8">
+      <GlassCard className="p-8">
         {/* Desktop: Horizontal Flow */}
         <div className="hidden lg:grid lg:grid-cols-7 gap-4 items-center">
           <ArchitectureNode node={nodes[0]} index={0} />
@@ -111,7 +120,7 @@ export default function ArchitectureDiagram() {
             </div>
           ))}
         </div>
-      </div>
+      </GlassCard>
     </section>
   );
 }
