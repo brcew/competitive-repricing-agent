@@ -11,13 +11,24 @@
   --font-body: 'Sora', system-ui, sans-serif;
   --font-mono: 'Space Mono', ui-monospace, Consolas, monospace;
   
-  /* Liquid glass intensity */
-  --glass-blur: 24px;
-  --glass-saturation: 170%;
-  --glass-opacity-start: 0.12;
-  --glass-opacity-end: 0.04;
-  --glass-border-opacity: 0.18;
-  --glass-glow-strength: 0.25;
+  /* Crisp glass settings (dark purple tint, low blur) */
+  --glass-blur: 10px;
+  --glass-bg: rgba(20, 10, 40, 0.55);
+  --glass-bg-hover: rgba(30, 15, 50, 0.65);
+  --glass-saturation: 120%;
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-glow-strength: 0.2;
+  
+  /* Background elements */
+  --blob-opacity: 0.12;
+  --blob-blur: 60px;
+  
+  /* Floating objects */
+  --object-blur-far: 0px;
+  --object-blur-mid: 0px;
+  --object-opacity-far: 0.08;
+  --object-opacity-mid: 0.12;
+  --object-opacity-near: 0.15;
   
   /* 3D tilt settings */
   --icon-tilt-max: 18deg;
@@ -90,38 +101,30 @@
 
 @layer utilities {
   /* ============================================
-     LIQUID GLASS CARD - Enhanced version
+     CRISP GLASS CARD (dark purple tint, no fog)
      ============================================ */
   .glass-card-enhanced {
     position: relative;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, var(--glass-opacity-start)) 0%,
-      rgba(255, 255, 255, var(--glass-opacity-end)) 100%
-    );
-    backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-saturation, 170%));
-    -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-saturation, 170%));
-    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    border: 1px solid var(--glass-border);
     border-radius: 24px;
     box-shadow: 
-      0 8px 32px 0 rgba(168, 85, 247, var(--glass-glow-strength)),
-      inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+      0 4px 24px 0 rgba(168, 85, 247, var(--glass-glow-strength)),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .glass-card-enhanced:hover {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, calc(var(--glass-opacity-start) * 1.3)) 0%,
-      rgba(255, 255, 255, calc(var(--glass-opacity-end) * 1.5)) 100%
-    );
-    border-color: rgba(168, 85, 247, 0.4);
+    background: var(--glass-bg-hover);
+    border-color: rgba(168, 85, 247, 0.3);
     box-shadow: 
-      0 12px 48px 0 rgba(168, 85, 247, calc(var(--glass-glow-strength) * 1.5)),
-      inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+      0 8px 32px 0 rgba(168, 85, 247, calc(var(--glass-glow-strength) * 1.4)),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
   }
   
-  /* Cursor-following specular highlight */
+  /* Subtle specular highlight (barely visible) */
   .glass-specular {
     position: absolute;
     width: 200px;
@@ -129,8 +132,8 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(255, 255, 255, 0.25) 0%,
-      rgba(255, 255, 255, 0.05) 40%,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.01) 40%,
       transparent 70%
     );
     transform: translate(-50%, -50%);
@@ -203,13 +206,13 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba(255, 255, 255, 0.4) 0%,
-      rgba(255, 255, 255, 0.2) 30%,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.08) 30%,
       transparent 60%
     );
     transform: translate(-50%, -50%);
     pointer-events: none;
-    filter: blur(8px);
+    filter: blur(6px);
     mix-blend-mode: overlay;
     z-index: 3;
   }
@@ -239,13 +242,13 @@
   }
   
   /* ============================================
-     LIQUID MORPHING BLOBS
+     SUBTLE BACKGROUND BLOBS (reduced fog)
      ============================================ */
   .blob-bg {
     position: fixed;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.3;
+    filter: blur(var(--blob-blur));
+    opacity: var(--blob-opacity);
     pointer-events: none;
     z-index: 0;
     animation: liquid-morph var(--blob-morph-duration) infinite ease-in-out;
@@ -281,7 +284,8 @@
    ============================================ */
 @media (max-width: 768px) {
   :root {
-    --glass-blur: 20px;
+    --glass-blur: 8px;
+    --blob-blur: 50px;
     --icon-tilt-max: 0deg;
     --card-tilt-max: 0deg;
   }

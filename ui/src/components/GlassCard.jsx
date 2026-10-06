@@ -59,11 +59,11 @@ export default function GlassCard({
     mouseY.set(0.5);
   };
   
-  // Intensity presets
+  // Intensity presets (using CSS variables for base)
   const intensityConfig = {
-    low: { blur: 'blur(16px)', opacity: 0.06 },
-    medium: { blur: 'blur(24px)', opacity: 0.1 },
-    high: { blur: 'blur(32px)', opacity: 0.14 }
+    low: { blur: 'blur(8px)', opacity: 0.45 },
+    medium: { blur: 'blur(10px)', opacity: 0.55 },
+    high: { blur: 'blur(12px)', opacity: 0.65 }
   };
   
   const config = intensityConfig[intensity] || intensityConfig.medium;
@@ -76,8 +76,7 @@ export default function GlassCard({
         rotateX: enableTilt && !isTouchDevice ? rotateX : 0,
         rotateY: enableTilt && !isTouchDevice ? rotateY : 0,
         transformStyle: 'preserve-3d',
-        '--blur-amount': config.blur,
-        '--glass-opacity': config.opacity,
+        background: `rgba(20, 10, 40, ${config.opacity})`
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

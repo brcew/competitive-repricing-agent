@@ -17,14 +17,14 @@ import {
 // === CONFIGURATION (TUNE HERE) ===
 const CONFIG = {
   desktop: {
-    far: { count: 5, opacity: 0.12, blur: 4, speed: 35, size: 60 },
-    mid: { count: 4, opacity: 0.18, blur: 2, speed: 28, size: 80 },
-    near: { count: 3, opacity: 0.25, blur: 0, speed: 20, size: 120 }
+    far: { count: 5, opacity: 0.08, blur: 0, speed: 35, size: 60 },
+    mid: { count: 4, opacity: 0.12, blur: 0, speed: 28, size: 80 },
+    near: { count: 3, opacity: 0.15, blur: 0, speed: 20, size: 120 }
   },
   mobile: {
-    far: { count: 2, opacity: 0.10, blur: 3, speed: 40, size: 50 },
-    mid: { count: 2, opacity: 0.15, blur: 1, speed: 30, size: 70 },
-    near: { count: 1, opacity: 0.20, blur: 0, speed: 25, size: 100 }
+    far: { count: 2, opacity: 0.08, blur: 0, speed: 40, size: 50 },
+    mid: { count: 2, opacity: 0.12, blur: 0, speed: 30, size: 70 },
+    near: { count: 1, opacity: 0.15, blur: 0, speed: 25, size: 100 }
   },
   parallax: {
     near: 20,  // px shift for near layer

@@ -12,16 +12,17 @@ import FloatingObjects from './components/FloatingObjects';
 function BackgroundBlobs() {
   return (
     <>
+      {/* Smaller blobs positioned at edges only */}
       <div 
-        className="blob-bg w-[500px] h-[500px] bg-accent-purple/30 top-[10%] left-[-10%]"
+        className="blob-bg w-[300px] h-[300px] bg-accent-purple/30 top-[5%] left-[-8%]"
         style={{ animationDelay: '0s' }}
       />
       <div 
-        className="blob-bg w-[400px] h-[400px] bg-accent-pink/30 top-[50%] right-[-5%]"
+        className="blob-bg w-[250px] h-[250px] bg-accent-pink/30 top-[60%] right-[-5%]"
         style={{ animationDelay: '5s' }}
       />
       <div 
-        className="blob-bg w-[350px] h-[350px] bg-accent-orange/30 bottom-[10%] left-[40%]"
+        className="blob-bg w-[200px] h-[200px] bg-accent-orange/30 bottom-[8%] left-[5%]"
         style={{ animationDelay: '10s' }}
       />
     </>
